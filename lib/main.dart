@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_new/infromation.dart';
 import 'package:flutter_new/profile1.dart';
 
 void main() {
@@ -86,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
               case 1:
                 return CupertinoTabView(
                   builder: (BuildContext context) {
-                    return Text("test");
+                    return Information();
                   },
                 );
                 break;
