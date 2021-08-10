@@ -13,10 +13,10 @@ class Information extends StatefulWidget {
 }
 
 class _InformationState extends State<Information> {
-  //List<String> userList = <String>[modelUser!.data!.toString()];
   @override
   User? modelUser;
-  Datum? dataUser;
+  //Datum? modelDatum;
+  bool isLoading = true;
   Callapi() async {
     print("ดึงข้อมมูล api");
     try {
@@ -24,8 +24,9 @@ class _InformationState extends State<Information> {
       if (res.statusCode == 200) {
         var rs = json.decode(res.body);
         modelUser = User.fromJson(rs);
-        var rs2 = json.decode(res.body);
-        dataUser = Datum.fromJson(rs2);
+        setState(() {
+          isLoading = false;
+        });
       } else {
         print("error else");
       }
@@ -46,38 +47,62 @@ class _InformationState extends State<Information> {
       appBar: AppBar(
         title: Text("Information"),
       ),
-      body: Container(
-        color: Colors.amber[60],
-        child: ListView.builder(
-            itemCount: modelUser!.data!.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                height: 100,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber,
-                    border: Border.all(color: Colors.blueAccent)),
-                child: Row(
+      body: isLoading
+          ? Text("loading")
+          : Container(
+              color: Colors.white,
+              child: ListView.builder(
+                  itemCount: modelUser!.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return datalistview(index);
+                  }),
+            ),
+    );
+  }
+
+  Column datalistview(int index) {
+    return Column(
+      children: [
+        Divider(),
+        Container(
+          height: 150,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              border: Border.all(color: Colors.grey)),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
-                      children: [
-                        Icon(
-                          Icons.account_box,
-                          size: 90,
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text("data"),
-                        Text(dataUser!.firstName!.toString()),
-                      ],
-                    ),
+                    Icon(
+                      Icons.account_box,
+                      size: 90,
+                    )
                   ],
                 ),
-              );
-            }),
-      ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text("First Name : " +
+                        modelUser!.data![index].firstName.toString()),
+                    Text("Last Name : " +
+                        modelUser!.data![index].lastName.toString()),
+                    Text("Email : " + modelUser!.data![index].email.toString()),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Divider(),
+      ],
     );
   }
 }
