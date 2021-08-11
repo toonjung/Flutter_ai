@@ -26,46 +26,44 @@ class _DesignState extends State<Design> {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
-              Container(
-                height: 800,
-                color: Colors.white,
-                // decoration: BoxDecoration(
-                //   color: Colors.white,
-                //   borderRadius: BorderRadius.only(
-                //       topLeft: Radius.circular(20.0),
-                //       topRight: Radius.circular(10.0)
-                //       ),
-                // ),
-                child: Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                              flex: 8,
-                              child: Text(
-                                "Pending Rides",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
-                                textAlign: TextAlign.start,
-                              )),
-                          Expanded(
-                              flex: 2,
-                              child: Text(
-                                "2 riders",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
-                                textAlign: TextAlign.start,
-                              )),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 1,
-                      ),
-                      stackView(),
-                      stackView2(),
-                    ],
+              ClipPath(
+                //clipper: ClipPathClass(),
+                child: Container(
+                  height: 800,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                                flex: 8,
+                                child: Text(
+                                  "Pending Rides",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                  textAlign: TextAlign.start,
+                                )),
+                            Expanded(
+                                flex: 2,
+                                child: Text(
+                                  "2 riders",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                  textAlign: TextAlign.start,
+                                )),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 1,
+                        ),
+                        stackView(),
+                        stackView2(),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -665,3 +663,29 @@ class _DesignState extends State<Design> {
 //     return true;
 //   }
 // }
+
+class ClipPathClass extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var controlPoint1 = Offset(size.width * 1 / 4, size.height + 50);
+    var controlPoint2 = Offset(size.width * 3 / 4, size.height + 50);
+    var endPoint = Offset(0, 1);
+    Path path = Path();
+    path.moveTo(size.width, 0);
+    // // path.quadraticBezierTo(
+    // //     controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
+    // path.lineTo(0, 0);
+
+    // path.lineTo(0, size.height);
+    // path.lineTo(size.width, size.height);
+    path.cubicTo(controlPoint1.dx, controlPoint1.dy, controlPoint2.dx,
+        controlPoint2.dy, endPoint.dx, endPoint.dy);
+
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}

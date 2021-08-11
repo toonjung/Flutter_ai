@@ -31,23 +31,28 @@ class _ClipperTestState extends State<ClipperTest> {
                 child: Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
-                    colors: [Colors.white, Colors.pink],
+                    colors: [Color(0xfffe59be1), Colors.pink, Colors.white],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   )),
                 )),
             ClipPath(
-                clipper: ClipPathClass1(),
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.pink, Colors.white],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                    //boxShadow: [BoxShadow(color: Color)]
+              clipper: ClipPathClass1(),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xfffe17cd2),
+                      Colors.pink,
+                      Color(0xffee65b6),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
-                )),
+                  //boxShadow: [BoxShadow(color: Color)]
+                ),
+              ),
+            ),
             Container(
               height: double.infinity,
               child: Padding(
@@ -107,19 +112,35 @@ class _ClipperTestState extends State<ClipperTest> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.amber,
-
-                            onPrimary: Colors.white,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 15),
-                            // elevation: 10, // foreground
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(80)),
+                        Container(
+                          width: 200,
+                          height: 50,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(80),
+                            gradient: LinearGradient(
+                              colors: [
+                                Color(0xfffd395f1),
+                                Color(0xffffa509b),
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
                           ),
-                          onPressed: () {},
-                          child: Text("SIGN IN"),
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: InkWell(
+                              onTap: () {
+                                print('Tapped!');
+                              },
+                              child: Text(
+                                "SIGN IN",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                         Icon(
                           Icons.facebook,
@@ -160,6 +181,18 @@ class _ClipperTestState extends State<ClipperTest> {
                     ),
                   ],
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(55.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Drilllle",
+                    style: TextStyle(color: Colors.white, fontSize: 50),
+                  ),
+                ],
               ),
             ),
           ],
@@ -212,14 +245,14 @@ class ClipPathClass2 extends CustomClipper<Path> {
 class ClipPathClass3 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var controlPoint = Offset(size.width / 2, size.height / 2);
-    var endPoint = Offset(size.width, size.height);
+    var controlPoint = Offset(size.width / 2, size.height * 3 / 4);
+    var endPoint = Offset(size.width / 2, size.height);
 
     Path path = Path();
-    path.moveTo(size.width, size.height / 1.5);
-    path.lineTo(0, size.height);
+    path.moveTo(size.width, size.height * 3 / 4);
     path.quadraticBezierTo(
         controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
+    path.lineTo(size.width, size.height);
     path.close();
 
     return path;
