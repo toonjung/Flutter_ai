@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_new/design.dart';
 import 'package:flutter_new/infromation.dart';
 import 'package:flutter_new/profile1.dart';
-import 'package:flutter_new/test2.dart';
+import 'package:flutter_new/clipperTest2.dart';
 
 void main() {
   runApp(MyApp());
@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
               case 3:
                 return CupertinoTabView(
                   builder: (BuildContext context) {
-                    return Test2();
+                    return ClipperTest();
                   },
                 );
               case 4:
