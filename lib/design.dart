@@ -10,65 +10,78 @@ class Design extends StatefulWidget {
 }
 
 class _DesignState extends State<Design> {
-  bool isSwitched = false;
+  bool isSwitched = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
-          backgroundColor: Colors.grey[200],
+          backgroundColor: Colors.grey[300],
           iconTheme: IconThemeData(color: Colors.grey[900]),
           elevation: 0,
           title: viewAppBar()),
       drawer: viewDrawer(context),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            children: [
-              ClipPath(
-                //clipper: ClipPathClass(),
-                child: Container(
-                  height: 800,
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Column(
-                      children: [
-                        Row(
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: ClipPath(
+                      clipper: ClipPathClass(),
+                      child: Container(
+                        color: Colors.white,
+                        height: 40,
+                      )),
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      height: 800,
+                      color: Colors.white,
+                      margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
                           children: [
-                            Expanded(
-                                flex: 8,
-                                child: Text(
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
                                   "Pending Rides",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18),
-                                  textAlign: TextAlign.start,
+                                  textAlign: TextAlign.center,
                                 )),
-                            Expanded(
-                                flex: 2,
-                                child: Text(
+                                Expanded(
+                                    child: Text(
                                   "2 riders",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18),
-                                  textAlign: TextAlign.start,
+                                  textAlign: TextAlign.end,
                                 )),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 1,
+                            ),
+                            stackView(),
+                            stackView2(),
                           ],
                         ),
-                        SizedBox(
-                          height: 1,
-                        ),
-                        stackView(),
-                        stackView2(),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -89,7 +102,7 @@ class _DesignState extends State<Design> {
                     child: Container(
                       height: 70,
                       decoration: BoxDecoration(
-                        color: Colors.grey[300],
+                        color: Colors.grey[200],
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.0),
                             topRight: Radius.circular(10.0)),
@@ -314,10 +327,18 @@ class _DesignState extends State<Design> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://googleflutter.com/sample_image.jpg'),
-                          radius: 30.0,
+                        Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 4),
+                              boxShadow: [
+                                BoxShadow(color: Colors.grey, blurRadius: 3)
+                              ]),
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                'https://googleflutter.com/sample_image.jpg'),
+                            radius: 30.0,
+                          ),
                         ),
                       ],
                     ),
@@ -346,7 +367,7 @@ class _DesignState extends State<Design> {
                     child: Container(
                       height: 70,
                       decoration: BoxDecoration(
-                        color: Colors.grey[300],
+                        color: Colors.grey[200],
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.0),
                             topRight: Radius.circular(10.0)),
@@ -481,81 +502,6 @@ class _DesignState extends State<Design> {
                   ),
                 ],
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 5,
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Jenjira Kolmtrkul",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "my name is Jenjira Kolmtrkul",
-                                  ),
-                                  Text("the xxxx of the house"),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [Icon(Icons.phone)],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 50,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.green[700],
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10.0),
-                            bottomRight: Radius.circular(10.0)),
-                      ),
-                      child: Expanded(
-                        child: Text(
-                          "Accept Ride",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.white),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
@@ -571,10 +517,18 @@ class _DesignState extends State<Design> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://googleflutter.com/sample_image.jpg'),
-                          radius: 30.0,
+                        Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 4),
+                              boxShadow: [
+                                BoxShadow(color: Colors.grey, blurRadius: 3)
+                              ]),
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                'https://googleflutter.com/sample_image.jpg'),
+                            radius: 30.0,
+                          ),
                         ),
                       ],
                     ),
@@ -632,7 +586,7 @@ class _DesignState extends State<Design> {
             value: isSwitched,
             onChanged: (value) {
               setState(() {
-                isSwitched = value;
+                isSwitched = false;
                 print(isSwitched);
               });
             },
@@ -645,39 +599,18 @@ class _DesignState extends State<Design> {
   }
 }
 
-// class MyClipper extends CustomClipper<Path> {
-//   @override
-//   Path getClip(Size size) {
-//        var path = Path();
-//     path.lineTo(0, 220);
-//     path.quadraticBezierTo(size.width / 4, 160, size.width / 2, 175);
-//     path.quadraticBezierTo(3 / 4 * size.width, 190, size.width, 130);
-//     path.lineTo(size.width, 0);
-//     path.close();
-//     return path;
-//   }
-
-//   @override
-//   bool shouldReclip(CustomClipper<Path> oldClipper) {
-//     // TODO: implement shouldReclip
-//     return true;
-//   }
-// }
-
 class ClipPathClass extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var controlPoint1 = Offset(size.width * 1 / 4, size.height + 50);
-    var controlPoint2 = Offset(size.width * 3 / 4, size.height + 50);
-    var endPoint = Offset(0, 1);
+    var controlPoint1 = Offset(size.width * 2 / 3, size.height * 3 / 4);
+    var controlPoint2 = Offset(size.width * 1 / 2, 0);
+    var endPoint = Offset(size.width * 1 / 6, size.height * 0.1);
     Path path = Path();
-    path.moveTo(size.width, 0);
-    // // path.quadraticBezierTo(
-    // //     controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
-    // path.lineTo(0, 0);
+    path.moveTo(0, size.height * 1 / 4);
 
-    // path.lineTo(0, size.height);
-    // path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width, size.height * 1 / 8);
     path.cubicTo(controlPoint1.dx, controlPoint1.dy, controlPoint2.dx,
         controlPoint2.dy, endPoint.dx, endPoint.dy);
 
