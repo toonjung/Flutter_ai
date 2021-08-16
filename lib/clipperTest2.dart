@@ -12,7 +12,7 @@ class _ClipperTestState extends State<ClipperTest> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        // height: 400,
+        // height: double.maxFinite,
         color: Colors.white,
         child: Stack(
           children: [
@@ -55,8 +55,8 @@ class _ClipperTestState extends State<ClipperTest> {
             ),
             Container(
               height: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
+              margin: EdgeInsets.only(left: 20.0, right: 20.0),
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
                     SizedBox(
@@ -112,32 +112,29 @@ class _ClipperTestState extends State<ClipperTest> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
-                          width: 200,
-                          height: 50,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(80),
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(0xfffd395f1),
-                                Color(0xffffa509b),
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
+                        GestureDetector(
+                          onTap: () {
+                            print("กด SIGN IN");
+                          },
+                          child: Container(
+                            width: 200,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(80),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color(0xfffd395f1),
+                                  Color(0xffffa509b),
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
                             ),
-                          ),
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: InkWell(
-                              onTap: () {
-                                print('Tapped!');
-                              },
-                              child: Text(
-                                "SIGN IN",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
+                            child: Text(
+                              "SIGN IN",
+                              style: TextStyle(
+                                color: Colors.white,
                               ),
                             ),
                           ),
@@ -205,14 +202,9 @@ class _ClipperTestState extends State<ClipperTest> {
 class ClipPathClass1 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var controlPoint = Offset(size.width / 1.3, size.height / 3);
-    var endPoint = Offset(size.width / 1.5, 0);
-
     Path path = Path();
-
-    path.lineTo(0, size.height / 3);
-    path.quadraticBezierTo(
-        controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
+    path.addOval(
+        Rect.fromLTWH(-100, -130, size.width * 5 / 5, size.width * 5 / 5));
     path.close();
 
     return path;
@@ -225,14 +217,9 @@ class ClipPathClass1 extends CustomClipper<Path> {
 class ClipPathClass2 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var controlPoint = Offset(size.width / 2, size.height / 5);
-    var endPoint = Offset(size.width, size.height / 5);
-
     Path path = Path();
-    path.moveTo(size.width, 0);
-    path.lineTo(size.width / 1.5, 0);
-    path.quadraticBezierTo(
-        controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
+    path.addOval(Rect.fromLTWH(
+        size.width * 0.6, -70, size.width * 2 / 3, size.width * 2 / 3));
     path.close();
 
     return path;
@@ -245,14 +232,9 @@ class ClipPathClass2 extends CustomClipper<Path> {
 class ClipPathClass3 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var controlPoint = Offset(size.width / 2, size.height * 3 / 4);
-    var endPoint = Offset(size.width / 2, size.height);
-
     Path path = Path();
-    path.moveTo(size.width, size.height * 3 / 4);
-    path.quadraticBezierTo(
-        controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
-    path.lineTo(size.width, size.height);
+    path.addOval(Rect.fromLTWH(size.width * 0.55, size.height * 0.75,
+        size.width * 2 / 3, size.width * 2 / 3));
     path.close();
 
     return path;
@@ -261,3 +243,25 @@ class ClipPathClass3 extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
+
+
+
+// class ClipPathClass3 extends CustomClipper<Path> {
+//   @override
+//   Path getClip(Size size) {
+//     var controlPoint = Offset(size.width / 2, size.height * 3 / 4);
+//     var endPoint = Offset(size.width / 2, size.height);
+
+//     Path path = Path();
+//     path.moveTo(size.width, size.height * 3 / 4);
+//     path.quadraticBezierTo(
+//         controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
+//     path.lineTo(size.width, size.height);
+//     path.close();
+
+//     return path;
+//   }
+
+//   @override
+//   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+// }
