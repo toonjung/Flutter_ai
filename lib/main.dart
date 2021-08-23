@@ -1,12 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_new/bloc/information/bloc/information_bloc.dart';
 import 'package:flutter_new/design.dart';
 import 'package:flutter_new/home.dart';
 import 'package:flutter_new/infromation.dart';
+import 'package:flutter_new/myProfile.dart';
 import 'package:flutter_new/profile1.dart';
 import 'package:flutter_new/clipperTest2.dart';
 
+class SimpleBlocObserver extends BlocObserver {
+  @override
+  void onEvent(Bloc bloc, Object? event) {
+    super.onEvent(bloc, event);
+    print(event);
+  }
+
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    print(transition);
+  }
+
+  @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    print(error);
+    super.onError(bloc, error, stackTrace);
+  }
+}
+
 void main() {
+  Bloc.observer = SimpleBlocObserver();
   runApp(MyApp());
 }
 
@@ -14,12 +38,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: Color(0xFF041c43),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<InformationBloc>(
+          create: (BuildContext context) => InformationBloc(),
+        ),
+        // BlocProvider<InformationBloc>(
+        //   create: (BuildContext context) => InformationBloc(),
+        // ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primaryColor: Color(0xFF041c43),
+        ),
+        home: MyHomePage(0),
       ),
-      home: MyHomePage(0),
     );
   }
 }
@@ -84,6 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 return CupertinoTabView(
                   builder: (BuildContext context) {
                     return Profile1();
+                    //return MyProfile();
                   },
                 );
                 break;
@@ -111,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
               case 4:
                 return CupertinoTabView(
                   builder: (BuildContext context) {
-                    return Text("test");
+                    return MyProfile();
                   },
                 );
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_new/informationStl.dart';
 import 'package:flutter_new/infromation.dart';
 
 class Home extends StatefulWidget {
@@ -25,12 +26,14 @@ class _HomeState extends State<Home> {
                 );
               },
               icon: Icon(Icons.home)),
-          IconButton(onPressed: () {
-             Navigator.push(
+          IconButton(
+              onPressed: () {
+                Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Information()),
+                  MaterialPageRoute(builder: (context) => InformationStl()),
                 );
-          }, icon: Icon(Icons.home))
+              },
+              icon: Icon(Icons.home))
         ],
       ),
     );
